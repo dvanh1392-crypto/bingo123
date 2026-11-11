@@ -38,3 +38,11 @@ Lưu ý: bản V1 lưu phòng trong RAM; khi server restart sẽ mất phòng v�
 - Bingo 75: server quay số mỗi 10 giây, người chơi tự đánh dấu số đã quay, một đường thắng.
 - Cả hai: 2–4 người, tất cả sẵn sàng mới bắt đầu; rời phòng khi còn 1 người thì người đó thắng; khi còn ít nhất 2 người, game tạm dừng và tất cả phải chọn tiếp tục.
 - Mất kết nối có 30 giây để quay lại bằng cùng tab; sau đó được tính là rời phòng.
+
+
+## V2 – Tỷ số tích lũy trong phòng
+- Mỗi ván có đúng 1 người thắng: người đó +1 điểm. Hòa: không ai được cộng điểm.
+- Điểm được giữ khi tất cả người chơi chọn **Chơi ván mới** và tiếp tục dùng cùng mã phòng.
+- Tất cả người chơi còn trong phòng phải chọn **Chơi ván mới** thì mới quay về phòng chờ; sau đó tất cả nhấn **Sẵn sàng** để bắt đầu ván kế tiếp.
+- Người rời phòng bị xóa khỏi bảng điểm. Khi phòng trống, máy chủ xóa toàn bộ phòng và tỷ số.
+- Điểm được lưu trong RAM: khi server Render khởi động lại hoặc triển khai bản mới, điểm và phòng sẽ mất. Muốn lưu qua lần restart cần thêm database (Redis/Postgres).
