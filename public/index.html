@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Bingo Party Online</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <div class="shell">
+        <header>
+            <div class="brand">✦ BINGO <span>PARTY</span><small>ONLINE MULTIPLAYER</small></div>
+            <div class="headRight"><button id="lang" class="ghost">中文</button><button id="rulesBtn" class="ghost">📖
+                    <span data-i="rules">Luật chơi</span></button></div>
+        </header>
+        <main>
+            <section id="home" class="panel">
+                <div class="hero">
+                    <div class="eyebrow">✦ PLAY TOGETHER · WIN TOGETHER ✦</div>
+                    <h1>BINGO <em>PARTY</em></h1>
+                    <p data-i="tagline">2 chế độ • 2–4 người chơi • Kết nối thời gian thực</p>
+                </div><label data-i="name">Tên của bạn</label><input id="name" maxlength="20"
+                    placeholder="Nhập tên / 输入昵称">
+                <div class="split">
+                    <div><label data-i="mode">Chế độ chơi</label><select id="mode">
+                            <option value="25">Bingo 25</option>
+                            <option value="75">Bingo 75</option>
+                        </select></div>
+                    <div><label data-i="capacity">Số người tối đa</label><select id="capacity">
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4" selected>4</option>
+                        </select></div>
+                </div><button id="create" class="primary" data-i="create">✦ Tạo phòng mới</button>
+                <div class="or" data-i="or">HOẶC THAM GIA</div>
+                <div class="join"><input id="roomCode" maxlength="6" placeholder="Mã phòng / 房间号"><button id="join"
+                        data-i="join">Vào phòng</button></div><button class="textBtn" id="homeRules"
+                    data-i="readRules">Xem luật trước khi chơi</button>
+            </section>
+            <section id="lobby" class="panel hidden">
+                <div class="sectionTitle">
+                    <h2 data-i="lobby">Phòng chờ</h2><span class="pill" data-i="waiting">Đang chờ</span>
+                </div>
+                <div class="roomCode"><small data-i="room">MÃ PHÒNG</small><strong id="codeText"></strong><button
+                        id="copy" class="ghost" data-i="copy">Sao chép link mời</button></div>
+                <div class="details" id="roomDetails"></div>
+                <div id="players" class="players"></div>
+                <div class="actions"><button id="ready" class="primary" data-i="ready">✓ Sẵn sàng</button><button
+                        id="start" class="primary hidden" data-i="start">Bắt đầu</button><button id="leaveLobby"
+                        class="danger" data-i="leave">Rời phòng</button></div>
+                <p class="hint" data-i="readyHint">Tất cả người chơi phải sẵn sàng mới có thể bắt đầu.</p>
+            </section>
+            <section id="game" class="hidden">
+                <div class="gameTop">
+                    <div><span class="eyebrow" id="gameMode"></span>
+                        <h2 id="gameTitle">BINGO</h2>
+                    </div><button id="leaveGame" class="danger" data-i="leave">Rời phòng</button>
+                </div>
+                <div class="status">
+                    <div><small data-i="last">SỐ VỪA GỌI / QUAY</small>
+                        <div id="lastNumber" class="ball">—</div>
+                    </div>
+                    <div><small data-i="time">THỜI GIAN</small>
+                        <div id="timer" class="time">10s</div>
+                    </div>
+                </div>
+                <div id="turnText" class="turn"></div>
+                <div id="board" class="board"></div>
+                <div class="score"><span id="myLines"></span><span id="calledCount"></span></div>
+                <div class="gamePanels">
+                    <div class="panel compact">
+                        <h3 data-i="players">Người chơi</h3>
+                        <div id="gamePlayers"></div>
+                    </div>
+                    <div class="panel compact">
+                        <h3 data-i="history">Lịch sử số</h3>
+                        <div id="history" class="history"></div>
+                    </div>
+                </div>
+            </section>
+            <section id="ended" class="panel hidden">
+                <div class="trophy">🏆</div>
+                <h1 id="resultTitle"></h1>
+                <p id="resultDesc"></p>
+                <div id="results"></div><button id="restart" class="primary hidden" data-i="restart">Chơi ván
+                    mới</button><button id="leaveEnd" class="danger" data-i="leave">Rời phòng</button>
+            </section>
+        </main>
+        <footer>BINGO PARTY · VI / 中文 · v1.0</footer>
+    </div>
+    <div id="modal" class="overlay hidden">
+        <div class="modal panel">
+            <div class="modalHead">
+                <h2 data-i="rules">Luật chơi</h2><button id="closeModal" class="ghost">✕</button>
+            </div>
+            <div class="tabs"><button id="tab25" class="active">Bingo 25</button><button id="tab75">Bingo 75</button>
+            </div>
+            <div id="rulesContent"></div>
+        </div>
+    </div>
+    <div id="pause" class="overlay hidden">
+        <div class="modal panel">
+            <h2 data-i="playerLeft">Có người chơi rời phòng</h2>
+            <p id="pauseText"></p>
+            <div class="actions"><button id="continue" class="primary" data-i="continue">Tiếp tục chơi</button><button
+                    id="leavePause" class="danger" data-i="leave">Rời phòng</button></div>
+            <p id="votes" class="hint"></p>
+        </div>
+    </div>
+    <div id="toast" role="status"></div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/game.js"></script>
+</body>
+
+</html>
